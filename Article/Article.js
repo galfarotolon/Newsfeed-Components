@@ -1,7 +1,6 @@
 /* This is the data we will be using to create our article components */
 /* Look over this data, then proceed to line 91*/
-const data = [
-  {
+const data = [{
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -85,6 +84,23 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Rick and Morty Stuff',
+    date: 'April 8th, 2020',
+    firstParagraph: `Why are you doing this bit? We're gonna die. It's a dream, Morty! We're in your dog's dream. The 
+    night the dogs captured us, after you cried and crapped your pants, we-we all went to sleep. Then I used my dream 
+    inceptors to put the two of us inside Snuffles' dream. I'll be with Reuben in my workshop while you guys are 
+    having another day in Phil Collin's proverbial paradise. Mind your own goddamn business, Gene! I'm having a 
+    conversation with my mother here! Kissing Rick's ass isn't gonna make him stay, Mom, but it will help you lose 
+    everyone else. `,
+
+    secondParagraph: `Sometimes science is a lot more art, than science. A lot of people don't get that. I ain't 
+    better than shit, Jack! You know who's into dragons, Morty? Nerds who refuse to admit they're Christian. Ohh, fuck!`,
+
+    thirdParagraph: `Wow, so your origin is what? You fell into a vat of redundancy? That's because losers 
+    look stuff up while the rest of us are carp'en all them 'diems. You look it up, you don't- you don't even know 
+    what it means. I just killed my family! I don’t care who they were!`
   }
 ];
 
@@ -101,14 +117,93 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece 
+  of the data object above.
 
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+*/
+
+const articles = document.querySelector(".articles")
+
+
+function articleMaker({
+  title,
+  date,
+  firstParagraph,
+  secondParagraph,
+  thirdParagraph
+}) {
+
+  const article = document.createElement("div")
+  const articleTitle = document.createElement("h2")
+  const articleDate = document.createElement("p")
+  const articleP1 = document.createElement("p")
+  const articleP2 = document.createElement("p")
+  const articleP3 = document.createElement("p")
+  const articleSpan = document.createElement("span")
+
+
+  article.appendChild(articleTitle)
+  article.appendChild(articleDate)
+  article.appendChild(articleP1)
+  article.appendChild(articleP2)
+  article.appendChild(articleP3)
+  article.appendChild(articleSpan)
+
+
+  article.classList.add("article")
+  articleDate.classList.add("date")
+  articleSpan.classList.add("expandButton")
+
+
+  articleTitle.textContent = title
+  articleDate.textContent = date
+  articleP1.textContent = firstParagraph
+  articleP2.textContent = secondParagraph
+  articleP3.textContent = thirdParagraph
+  articleSpan.textContent = "Click Me"
+
+
+
+
+  /*
+    Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' 
+    on the 'article' div.
+
+    */
+
+
+  articleSpan.addEventListener("click", function () {
+    article.classList.toggle("article-open")
+  })
+
+  /*
 
   Step 3: return the entire component.
+*/
 
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+  return article
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+
+}
+
+/*
+  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of 
+  the 'articles' div.
+
+  */
+
+const articleElements = data.map(data => {
+  return articleMaker(data)
+})
+
+articleElements.forEach(articleElement => {
+  articles.appendChild(articleElement)
+})
+
+
+
+/*
+  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page 
+  to see the new article.
 
 */
